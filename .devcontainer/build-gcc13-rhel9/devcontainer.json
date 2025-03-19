@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.base.schema.json",
+  "name": "build-gcc13-rhel9",
+  "build": {
+    "context": "../../tools/docker/build-gcc13-rhel9",
+    "dockerfile": "../../tools/docker/build-gcc13-rhel9/Dockerfile",
+    "args": {
+      "BASE_REPO": "registry.redhat.io",
+      "BASE_IMAGE": "ubi9/ubi",
+      "BASE_TAG": "9.7",
+      "USERNAME": "${localEnv:USER}"
+    },
+    "options": [
+      "--secret=id=RHEL_ORG",
+      "--secret=id=RHEL_ACTIVATION_KEY"
+    ]
+  },
+  "mounts": [
+    "type=volume,source=vcpkg-gdal,target=/vcpkg"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "davidanson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "editorconfig.editorconfig",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "stkb.rewrap",
+        "timonwong.shellcheck",
+        "vscode.cpptools-extension-pack",
+        "xaver.clang-format"
+      ],
+      "settings": {
+        "C_Cpp.clang_format_fallbackStyle": "Google",
+        "C_Cpp.default.cppStandard": "c++20",
+        "[c]": {
+          "editor.defaultFormatter": "xaver.clang-format"
+        },
+        "[cpp]": {
+          "editor.defaultFormatter": "xaver.clang-format"
+        }
+      }
+    }
+  }
+}
