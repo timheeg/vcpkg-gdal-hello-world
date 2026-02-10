@@ -1,0 +1,17 @@
+[rocky9-baseos]
+name=Rocky Linux 9 - BaseOS
+baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/x86_64/os/
+gpgcheck=0
+enabled=0
+
+[rocky9-appstream]
+name=Rocky Linux 9 - AppStream
+baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/x86_64/os/
+gpgcheck=0
+enabled=0
+
+[rocky9-devel]
+name=Rocky Linux 9 - Devel
+baseurl=http://dl.rockylinux.org/pub/rocky/9/Devel/x86_64/os/
+gpgcheck=0
+enabled=0
