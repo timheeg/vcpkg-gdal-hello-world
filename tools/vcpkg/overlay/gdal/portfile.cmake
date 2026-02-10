@@ -32,6 +32,7 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         gif              GDAL_USE_GIF
         hdf5             GDAL_USE_HDF5
         iconv            GDAL_USE_ICONV
+        java-bindings    GDAL_USE_JAVA
         jpeg             GDAL_USE_JPEG
         core             GDAL_USE_JSONC
         kea              GDAL_USE_KEA
@@ -39,7 +40,7 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         libkml           GDAL_USE_LIBKML
         lzma             GDAL_USE_LIBLZMA
         libxml2          GDAL_USE_LIBXML2
-        mysql-libmariadb GDAL_USE_MYSQL 
+        mysql-libmariadb GDAL_USE_MYSQL
         netcdf           GDAL_USE_NETCDF
         odbc             GDAL_USE_ODBC
         openjpeg         GDAL_USE_OPENJPEG
@@ -72,6 +73,32 @@ endif()
 
 string(REPLACE "dynamic" "" qhull_target "Qhull::qhull${VCPKG_LIBRARY_LINKAGE}_r")
 
+# Configure Java bindings feature
+if (GDAL_USE_JAVA)
+  vcpkg_find_acquire_program(SWIG)
+  if(NOT SWIG)
+      message(FATAL_ERROR "SWIG not found")
+  endif()
+
+  vcpkg_list(APPEND FEATURE_OPTIONS
+    "-DBUILD_JAVA_BINDINGS=ON"
+    "-DCMAKE_DISABLE_FIND_PACKAGE_Java=OFF"
+    "-DCMAKE_DISABLE_FIND_PACKAGE_JNI=OFF"
+    "-DCMAKE_DISABLE_FIND_PACKAGE_SWIG=OFF"
+    "-DSWIG_EXECUTABLE=${SWIG}"
+  )
+  message("Feature options with Java Bindings enabled")
+  message("FEATURE_OPTIONS=${FEATURE_OPTIONS}")
+else()
+  vcpkg_list(APPEND FEATURE_OPTIONS
+    "-DCMAKE_DISABLE_FIND_PACKAGE_Java=ON"
+    "-DCMAKE_DISABLE_FIND_PACKAGE_JNI=ON"
+    "-DCMAKE_DISABLE_FIND_PACKAGE_SWIG=ON"
+  )
+  message("Feature options with Java Bindings disabled")
+  message("FEATURE_OPTIONS=${FEATURE_OPTIONS}")
+endif()
+
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
@@ -81,9 +108,6 @@ vcpkg_cmake_configure(
         -DBUILD_PYTHON_BINDINGS=OFF
         -DBUILD_TESTING=OFF
         -DCMAKE_DISABLE_FIND_PACKAGE_CSharp=ON
-        -DCMAKE_DISABLE_FIND_PACKAGE_Java=ON
-        -DCMAKE_DISABLE_FIND_PACKAGE_JNI=ON
-        -DCMAKE_DISABLE_FIND_PACKAGE_SWIG=ON
         -DCMAKE_DISABLE_FIND_PACKAGE_Arrow=ON
         -DGDAL_USE_INTERNAL_LIBS=OFF
         -DGDAL_USE_EXTERNAL_LIBS=OFF

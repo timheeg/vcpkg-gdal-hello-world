@@ -3,7 +3,12 @@
   "name": "vcpkg-gdal-hello-world",
   "version": "0.0.1",
   "dependencies": [
-    "gdal"
+    {
+      "name": "gdal",
+      "features": [
+        "java-bindings"
+      ]
+    }
   ],
   "overrides": [
     {

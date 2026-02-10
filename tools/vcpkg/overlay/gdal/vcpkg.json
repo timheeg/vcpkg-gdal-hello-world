@@ -1,7 +1,7 @@
 {
   "name": "gdal",
   "version-semver": "3.10.1",
-  "port-version": 1,
+  "port-version": 2,
   "description": "The Geographic Data Abstraction Library for reading and writing geospatial raster and vector data",
   "homepage": "https://gdal.org",
   "license": null,
@@ -139,6 +139,9 @@
       "dependencies": [
         "libiconv"
       ]
+    },
+    "java-bindings": {
+      "description": "Build java bindings"
     },
     "jpeg": {
       "description": "Use JPEG compression library",
