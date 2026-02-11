@@ -79,6 +79,14 @@
       }
     },
     {
+      "name": "shared",
+      "hidden": true,
+      "description": "shared vcpkg build (dynamic)",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
+      }
+    },
+    {
       "name": "x64-linux-gcc-static-release",
       "displayName": "x64-linux-gcc-static-release",
       "description": "gcc, static, release build",
@@ -86,6 +94,17 @@
         "x64-linux",
         "gcc",
         "static",
+        "release"
+      ]
+    },
+    {
+      "name": "x64-linux-gcc-shared-release",
+      "displayName": "x64-linux-gcc-shared-release",
+      "description": "gcc, shared, release build",
+      "inherits": [
+        "x64-linux",
+        "gcc",
+        "shared",
         "release"
       ]
     }
@@ -100,6 +119,12 @@
       "name": "x64-linux-gcc-static-release",
       "inherits": "common",
       "configurePreset": "x64-linux-gcc-static-release",
+      "configuration": "Release"
+    },
+    {
+      "name": "x64-linux-gcc-shared-release",
+      "inherits": "common",
+      "configurePreset": "x64-linux-gcc-shared-release",
       "configuration": "Release"
     }
   ]
