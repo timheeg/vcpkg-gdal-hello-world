@@ -43,7 +43,44 @@
       "name": "x64-linux",
       "hidden": true,
       "description": "x64 linux vcpkg build",
-      "inherits": "common"
+      "inherits": "common",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "x64-linux-static",
+      "hidden": true,
+      "description": "x64 linux static vcpkg build",
+      "inherits": "x64-linux",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      }
+    },
+    {
+      "name": "x64-linux-shared",
+      "hidden": true,
+      "description": "x64 linux shared vcpkg build",
+      "inherits": "x64-linux",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
+      }
+    },
+    {
+      "name": "x64-win10-shared",
+      "hidden": true,
+      "description": "x64 windows shared vcpkg build",
+      "inherits": "common",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-windows"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
     },
     {
       "name": "debug",
@@ -71,19 +108,12 @@
       }
     },
     {
-      "name": "static",
+      "name": "msvc",
       "hidden": true,
-      "description": "static vcpkg build",
+      "description": "msvc compiler",
       "cacheVariables": {
-        "VCPKG_TARGET_TRIPLET": "x64-linux"
-      }
-    },
-    {
-      "name": "shared",
-      "hidden": true,
-      "description": "shared vcpkg build (dynamic)",
-      "cacheVariables": {
-        "VCPKG_TARGET_TRIPLET": "x64-linux-dynamic"
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_C_COMPILER": "cl.exe"
       }
     },
     {
@@ -91,9 +121,8 @@
       "displayName": "x64-linux-gcc-static-release",
       "description": "gcc, static, release build",
       "inherits": [
-        "x64-linux",
+        "x64-linux-static",
         "gcc",
-        "static",
         "release"
       ]
     },
@@ -102,20 +131,18 @@
       "displayName": "x64-linux-gcc-shared-release",
       "description": "gcc, shared, release build",
       "inherits": [
-        "x64-linux",
+        "x64-linux-shared",
         "gcc",
-        "shared",
         "release"
       ]
     },
     {
       "name": "x64-win10-msvc-shared-release",
-      "displayName": "x64-linux-gcc-shared-release",
-      "description": "gcc, shared, release build",
+      "displayName": "x64-win10-gcc-shared-release",
+      "description": "msvc, shared, release build",
       "inherits": [
-        "x64-linux",
-        "gcc",
-        "shared",
+        "x64-win10-shared",
+        "msvc",
         "release"
       ]
     }
@@ -137,11 +164,17 @@
       "inherits": "common",
       "configurePreset": "x64-linux-gcc-shared-release",
       "configuration": "Release"
+    },
+    {
+      "name": "x64-win10-msvc-shared-release",
+      "inherits": "common",
+      "configurePreset": "x64-win10-msvc-shared-release",
+      "configuration": "Release"
     }
   ],
   "packagePresets": [
     {
-      "name": "x64-linux-gcc-release",
+      "name": "cpack-package",
       "hidden": true,
       "packageDirectory": "${sourceDir}/build/${presetName}/packages",
       "generators": [
@@ -161,14 +194,21 @@
       "displayName": "x64-linux-gcc-static-release",
       "description": "Package artifacts into a .tar.gz file.",
       "configurePreset": "x64-linux-gcc-static-release",
-      "inherits": "x64-linux-gcc-release"
+      "inherits": "cpack-package"
     },
     {
       "name": "x64-linux-gcc-shared-release",
       "displayName": "x64-linux-gcc-shared-release",
       "description": "Package artifacts into a .tar.gz file.",
       "configurePreset": "x64-linux-gcc-shared-release",
-      "inherits": "x64-linux-gcc-release"
+      "inherits": "cpack-package"
+    },
+    {
+      "name": "x64-win10-msvc-shared-release",
+      "displayName": "x64-win10-msvc-shared-release",
+      "description": "Package artifacts into a .tar.gz file.",
+      "configurePreset": "x64-win10-msvc-shared-release",
+      "inherits": "cpack-package"
     }
   ]
 }
