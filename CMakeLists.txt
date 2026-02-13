@@ -6,6 +6,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 find_package(GDAL CONFIG REQUIRED)
 
+include(GNUInstallDirs)
 include(compiler_flags)
 
 add_subdirectory(src)
