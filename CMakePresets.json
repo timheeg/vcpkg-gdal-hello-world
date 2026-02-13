@@ -107,6 +107,17 @@
         "shared",
         "release"
       ]
+    },
+    {
+      "name": "x64-win10-msvc-shared-release",
+      "displayName": "x64-linux-gcc-shared-release",
+      "description": "gcc, shared, release build",
+      "inherits": [
+        "x64-linux",
+        "gcc",
+        "shared",
+        "release"
+      ]
     }
   ],
   "buildPresets": [
@@ -126,6 +137,38 @@
       "inherits": "common",
       "configurePreset": "x64-linux-gcc-shared-release",
       "configuration": "Release"
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "x64-linux-gcc-release",
+      "hidden": true,
+      "packageDirectory": "${sourceDir}/build/${presetName}/packages",
+      "generators": [
+        "TGZ"
+      ],
+      "variables": {
+        "CPACK_CMAKE_GENERATOR": "Ninja"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "x64-linux-gcc-static-release",
+      "displayName": "x64-linux-gcc-static-release",
+      "description": "Package artifacts into a .tar.gz file.",
+      "configurePreset": "x64-linux-gcc-static-release",
+      "inherits": "x64-linux-gcc-release"
+    },
+    {
+      "name": "x64-linux-gcc-shared-release",
+      "displayName": "x64-linux-gcc-shared-release",
+      "description": "Package artifacts into a .tar.gz file.",
+      "configurePreset": "x64-linux-gcc-shared-release",
+      "inherits": "x64-linux-gcc-release"
     }
   ]
 }

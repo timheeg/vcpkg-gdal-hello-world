@@ -10,3 +10,5 @@ include(GNUInstallDirs)
 include(compiler_flags)
 
 add_subdirectory(src)
+
+include(CPack)
