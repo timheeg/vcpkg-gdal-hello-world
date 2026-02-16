@@ -6,7 +6,8 @@
     {
       "name": "gdal",
       "features": [
-        "java-bindings"
+        "java-bindings",
+        "tools"
       ]
     }
   ],
