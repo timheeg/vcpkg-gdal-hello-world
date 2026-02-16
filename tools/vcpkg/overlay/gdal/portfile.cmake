@@ -129,6 +129,10 @@ vcpkg_cmake_configure(
         QHULL_LIBRARY
 )
 vcpkg_cmake_install()
+# Manually run swig install
+include("${CURRENT_BUILDTREES_DIR}/x64-linux-dynamic-dbg/swig/cmake_install.cmake")
+include("${CURRENT_BUILDTREES_DIR}/x64-linux-dynamic-rel/swig/cmake_install.cmake")
+
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/gdal)
